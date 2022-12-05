@@ -18,13 +18,16 @@ void AMyActor::OnTimer()
 	UMaterialInstanceDynamic* mat = Mesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (mat)
 	{
-		mat->SetVectorParameterValue("Param", FLinearColor::MakeRandomColor());
+		FLinearColor color = FLinearColor::MakeRandomColor();
+		mat->SetVectorParameterValue("Param", color);
+		OnColorChanged.Broadcast(color, GetName());
 	}
 
 	static int count = 5;
 	if (count == 0)
 	{
 		GetWorldTimerManager().ClearTimer(Timer);
+		OnTimerFinished.Broadcast(this);
 	}
 	--count;
 

@@ -18,9 +18,10 @@ void AHub::BeginPlay()
 	Super::BeginPlay();
 
 	UWorld* world = GetWorld();
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
-		world->SpawnActor(MyMyActor, FVector(0.0f, 0.0f, i * 1100), FRotator::ZeroRotator);
+		FTransform tran(FRotator::ZeroRotator, FVector(0.0f, 120 * i, 100.0f));
+		world->SpawnActor<AMyActor>(MyClass, tran);
 	}
 }
 

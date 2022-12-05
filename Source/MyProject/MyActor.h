@@ -8,6 +8,9 @@
 #include "MyActor.generated.h"
 
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnColorChanged, const FLinearColor&, color, const FString&, name);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnTimerFinished, AActor*);
+
 UENUM(BlueprintType)
 enum class Change : uint8
 {
@@ -20,10 +23,10 @@ struct FMyStruct
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere)
-	uint32 Value {44};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Value {44};
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString String = "44";
 };
 
@@ -43,8 +46,12 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FMyStruct MyStruct;
+
+	UFUNCTION(BlueprintCallable)
+	FMyStruct GetMyStruct() const { return MyStruct; };
+
 
 	UPROPERTY(EditAnywhere)
 	Change Test;
@@ -55,6 +62,11 @@ public:
 	FTimerHandle Timer;
 
 	void OnTimer();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnColorChanged OnColorChanged;
+
+	FOnTimerFinished OnTimerFinished;
 
 protected:
 	// Called when the game starts or when spawned
