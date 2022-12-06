@@ -12,14 +12,26 @@ AHub::AHub()
 
 }
 
-void AHub::OnColorChanched(FLinearColor& color, FString& name)
+void AHub::OnColorChanched(const FLinearColor& color, const FString& name)
 {
 	UE_LOG(LogTemp, Warning, TEXT("COLOR"));
 }
 
 void AHub::OnTimerFinished(AActor* actor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Finished"));
+	UE_LOG(LogTemp, Warning, TEXT("FINISHED"));
+
+	AMyActor* act = Cast<AMyActor>(actor);
+	if (act)
+	{
+		UE_LOG(LogTemp, Error, TEXT("NO ERROR"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("ERROR"));
+	}
+
+	act->SetLifeSpan(2.0f);
 }
 
 // Called when the game starts or when spawned
@@ -30,10 +42,11 @@ void AHub::BeginPlay()
 	UWorld* world = GetWorld();
 	for (int i = 0; i < 4; ++i)
 	{
-		FTransform tran(FRotator::ZeroRotator, FVector(0.0f, 120 * i, 100.0f));
+		FTransform tran(FRotator::ZeroRotator, FVector(300.0f, 120 * i, 100.0f));
 		AMyActor* actor = world->SpawnActor<AMyActor>(MyClass, tran);
+
 		actor->OnColorChanged.AddDynamic(this, &AHub::OnColorChanched);
-		actor->OnTimerFinished.AddUObject(this, AHub::OnTimerFinished);
+		actor->OnTimerFinished.AddUObject(this, &AHub::OnTimerFinished);
 	}
 }
 

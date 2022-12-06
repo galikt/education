@@ -23,13 +23,12 @@ void AMyActor::OnTimer()
 		OnColorChanged.Broadcast(color, GetName());
 	}
 
-	static int count = 5;
-	if (count == 0)
+	if (Count <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(Timer);
 		OnTimerFinished.Broadcast(this);
 	}
-	--count;
+	--Count;
 
 }
 
@@ -45,6 +44,12 @@ void AMyActor::BeginPlay()
 	}
 
 	GetWorldTimerManager().SetTimer(Timer, this, &AMyActor::OnTimer, 1.0f, true);
+}
+
+void AMyActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	UE_LOG(LogTemp, Error, TEXT("DESTROED"));
 }
 
 // Called every frame

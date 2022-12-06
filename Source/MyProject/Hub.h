@@ -19,7 +19,8 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AMyActor> MyClass;
 
-	void OnColorChanched(FLinearColor &color, FString &name);
+	UFUNCTION()
+	void OnColorChanched(const FLinearColor &color, const FString &name);
 	void OnTimerFinished(AActor *actor);
 
 protected:
