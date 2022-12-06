@@ -19,6 +19,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AMyActor> MyClass;
 
+	void OnColorChanched(FLinearColor &color, FString &name);
+	void OnTimerFinished(AActor *actor);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

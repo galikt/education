@@ -57,6 +57,5 @@ void AMyActor::Tick(float DeltaTime)
 	FVector p = GetActorLocation();
 	p.Z = p.Z + FMath::Sin(t * 4) * 4;
 	SetActorLocation(p);
-
 }
 
