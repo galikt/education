@@ -2,6 +2,7 @@
 
 
 #include "MyPawn.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
