@@ -58,3 +58,12 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AMyPawn::PossessedBy(AController* control)
+{
+	UE_LOG(LogTemp, Error, TEXT("PassessBy"));
+}
+
+void AMyPawn::UnPossessed()
+{
+	UE_LOG(LogTemp, Error, TEXT("UnPassessed"));
+}

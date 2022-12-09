@@ -14,6 +14,15 @@ class MYPROJECT_API AMyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	void BeginPlay() override;
+
 protected:
 	void SetupInputComponent() override;
+	void ChangePawn();
+
+	UPROPERTY()
+	TArray<AActor*> Pawns;
+
+	uint32 Index = 0;
 };
